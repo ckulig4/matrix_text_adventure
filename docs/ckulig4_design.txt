@@ -1,0 +1,308 @@
+Matrix Adventure Text Game Design
+
+PROBLEM STATEMENT:
+  Design a text adventure game that follows Neo during the first Matrix Movie and prompts
+  the user to decide what to do in certain situations. Progress through the adventure to
+  get to the outcome based on the user's choices.
+  
+Nouns: Neo, choice, outcome
+
+Verbs: prompt, choose, display
+
+=========================================================================================
+
+Defining Diagram:
+
+INPUTS:
+    choice
+
+PROCESSING:
+    prompt for choice(s)
+    display messages and move to next prompt
+    display message and outcome
+
+OUTPUTS:
+    outcome
+
+=========================================================================================
+
+Solution Algorithm
+
+MatrixAdventure
+	initialize state with 0
+  initialize playing with TRUE
+  initialize choice with ""
+	
+  WHILE state === 0
+    Display "Welcome to the simulation, Click start to begin."
+    Wait for start "button" press
+    IF button pressed THEN
+      set state to 1
+    ENDIF
+  ENDWHILE
+  
+  WHILE playing is true
+    IF state === 1 THEN
+      Display "Wake Up Neo…
+              The Matrix has you
+              Follow the White Rabbit
+              Knock Knock Neo
+              People show up to door, you notice someone has a white rabbit tattoo
+              they ask if you want to go to a party"
+      
+      Prompt for choice with "Do you wish to follow, y or n?"
+      
+      convert choice to LOWERCASE
+      
+      IF choice === y OR choice === yes THEN
+        set state to 2
+      ELSE
+        set state to 3
+      ENDIF
+   
+    ELSE IF state === 2 THEN
+      Display "You go to the party. You are approached by a mysterious woman with black hair who identifies herself as Trinity.
+               She tells you about the situation that you are in.
+               She hints at the Matrix, she says that she can show you the way."  
+      
+      IF button press THEN
+        set state to 5
+      ENDIF
+    
+    ELSE IF state === 3 THEN
+      Display "You say that you have work tomorrow,
+               They prompt you again do you want to go to the party?"   
+      
+      Prompt for choice with "Do you wish to follow, y or n?"
+      
+      convert choice to LOWERCASE
+      
+      IF choice === y OR choice === yes THEN
+        set state to 2
+      ELSE
+        set state to 4
+      ENDIF
+    
+    ELSE IF state === 4 THEN
+      Display "You decide to go bed and try to get some sleep for tomorrow"
+      
+      IF button press THEN
+        set state to 5
+      ENDIF
+    
+    ELSE IF state === 5 THEN
+      Display "You wake up late for work, boss is pissed, you hurry back to your cubicle. There is a package on you desk containing a phone, is starts to ring.
+               You pick it up and a man starts to talk to you.
+              “Is this Morpheus?” you question. The man says “yes, but I must be brief, Yes, but I must be brief, there are a group of Men coming for you from the elevator.” 
+               You look over and see them approaching. You must make a decision to follow Morpheus’s instruction or be captured."
+      
+      Prompt for choice with "Do you wish to follow, y or n?"
+      
+      IF choice === yes THEN
+        set state to 6
+      ELSE
+        set state to 6
+      ENDIF    
+    
+    ELSE IF state === 6 THEN
+      Display "You are apprehended
+      
+      The agents interrogate you and insert a tracking device into your belly button.
+
+      You wake up the next day, you hope it was all a dream. You get a phone call to meet with Morpheus.
+
+      You meet up with Morpheus and they remove the tracker.
+
+      You have you meeting with Morpheus and he explains to you that you are a slave of the world you live in. 
+      Unfortunately, he explains that you can’t be told what the Matrix is to understand, you have to see it for yourself.
+
+      Morpheus has a proposition for you: Two pills a red and blue. IF you take the blue pill, the adventure is over, 
+      you wake up and nothing has changed. IF you take the red pill, Morpheus will show you what the Matrix is 
+      and what it is all about."
+
+      Prompt for choice with "Do you take the blue pill or the red pill? Enter blue or red"
+      
+      convert choice to LOWERCASE
+      
+      IF choice === red OR choice === r THEN
+        set state to 7
+      ELSEIF choice === blue OR choice === b THEN
+        set state to 8
+      ELSE
+        set state to 6;
+      ENDIF
+      
+    ELSE IF state === 7 THEN
+      Display "You have chosen the Path of the One, Congratulations, You have advanced further down the rabbit hole.
+      END PART ONE!"
+      set playing to false
+    ELSE 
+      Display "You are not the one, your adventure has come to an end
+      GAME OVER!"
+      Set playing to false
+    ENDIF
+  ENDWHILE 
+    
+  Display "Thank you for playing Part 1 of the Matrix Text Adventure!    
+END
+
+========================================================================================================================
+
+TEST PLANS
+
+Variables: answer start, answer y or n,  answer c, answer red or blue, answer r or c, answer r
+
+index: dyw2f = do you wish to follow?
+       [something] = page subject
+       c2c = enter c to continue
+       rob = red or blue
+       roc = restart or continue
+       
+TEST PLAN 1:
+
+Input: [program opens][Start] start?: "start",[wake up neo] dyw2f?: "y", [u go 2 party] c2c?: "c", [late 2 work] dyw2f?: "y",
+       [apprehended] rob?: "red", [Congratulations] roc?: "c", [Pt2 teaser] restart?: "r",[start] etc...
+
+Expected output: [program opens][Start][wake up neo][u go 2 party][late 2 work][apprehended][Congratulations][Pt2 teaser][start] etc...
+
+Actual output: [program opens][Start][wake up neo][u go 2 party][late 2 work][apprehended][Congratulations][Pt2 teaser][start] etc...
+
+TEST PLAN 2:
+
+Input: [program opens][Start] start?: "start",[wake up neo] dyw2f?: "n",[reject offer] dyw2f?: "y",[u go 2 party] c2c?: "c", [late 2 work] dyw2f?: "y",
+       [apprehended] rob?: "red", [Congratulations] roc?: "c", [Pt2 teaser] restart?: "r",[start] etc...
+
+Expected output: [program opens][Start][wake up neo][reject offer][u go 2 party][late 2 work][apprehended][Congratulations][Pt2 teaser][start] etc...
+
+Actual output: [program opens][Start][wake up neo][reject offer][u go 2 party][late 2 work][apprehended][Congratulations][Pt2 teaser][start] etc...
+
+TEST PLAN 3:
+
+Input: [program opens][Start] start?: "start",[wake up neo] dyw2f?: "n",[reject offer] dyw2f?: "n",[bed] c2c?: "c", [late 2 work] dyw2f?: "y",
+       [apprehended] rob?: "red", [Congratulations] roc?: "c", [Pt2 teaser] restart?: "r",[start] etc...
+
+Expected output: [program opens][Start][wake up neo][reject offer][bed][late 2 work][apprehended][Congratulations][Pt2 teaser][start] etc...
+
+Actual output: [program opens][Start][wake up neo][reject offer][bed][late 2 work][apprehended][Congratulations][Pt2 teaser][start] etc...
+
+TEST PLAN 4:
+
+Input: [program opens][Start] start?: "start",[wake up neo] dyw2f?: "n",[reject offer] dyw2f?: "y",[u go 2 party] c2c?: "c", [late 2 work] dyw2f?: "y",
+       [apprehended] rob?: "blue", [GAME OVER] restart?: "r",[start] etc...
+
+Expected output: [program opens][Start][wake up neo][reject offer][u go 2 party][late 2 work][apprehended][GAME OVER][start] etc...
+
+Actual output: [program opens][Start][wake up neo][reject offer][u go 2 party][late 2 work][apprehended][GAME OVER][start] etc...
+
+TEST PLAN 5:
+
+Input: [program opens][Start] start?: "start",[wake up neo] dyw2f?: "n",[reject offer] dyw2f?: "y",[u go 2 party] c2c?: "c", [late 2 work] dyw2f?: "n",     <-----"n" instead of "y"
+       [apprehended] rob?: "blue", [GAME OVER] restart?: "r",[start] etc...
+
+Expected output: [program opens][Start][wake up neo][reject offer][u go 2 party][late 2 work][apprehended][GAME OVER][start] etc...
+
+Actual output: [program opens][Start][wake up neo][reject offer][u go 2 party][late 2 work][apprehended][GAME OVER][start] etc...
+
+TEST PLAN 6:
+
+Input: [program opens][Start] start?: "start",[wake up neo] dyw2f?: "y", [u go 2 party] c2c?: "c", [late 2 work] dyw2f?: "y",
+       [apprehended] rob?: "red", [Congratulations] roc?: "r",[start] etc...
+
+Expected output: [program opens][Start][wake up neo][u go 2 party][late 2 work][apprehended][Congratulations][start] etc...
+
+Actual output: [program opens][Start][wake up neo][u go 2 party][late 2 work][apprehended][Congratulations][start] etc...
+
+TEST PLAN 7:
+
+Input: [program opens][Start] start?: "StArT"
+
+Expected output: alert("That's not valid")
+
+Actual output: alert("That's not valid")
+
+TEST PLAN 8:
+
+Input: [wake up neo] dyw2f?: "YES"
+
+Expected output: alert("Enter y or n")
+
+Actual output: alert("Enter y or n")
+
+TEST PLAN 9:
+
+Input: [u go 2 party] c2c?: "continue"
+
+Expected output: alert("Enter "c" to continue or close window to quit")
+
+Actual output: alert("Enter "c" to continue or close window to quit")
+
+TEST PLAN 10:
+
+Input: [reject offer] dyw2f?: "no"
+
+Expected output: alert("Enter y or n")
+
+Actual output: alert("Enter y or n")
+
+TEST PLAN 11:
+
+Input: [bed] c2c?: "continue"
+
+Expected output: alert("Enter "c" to continue or close window to quit")
+
+Actual output: alert("Enter "c" to continue or close window to quit")
+
+TEST PLAN 12:
+
+Input: [late 2 work] dyw2f?: "yes"
+
+Expected output: alert("Enter y or n")
+
+Actual output: alert("Enter y or n")
+
+TEST PLAN 13:
+
+Input: [apprehended] dyw2f?: "b"
+
+Expected output: alert("Enter red or blue")
+
+Actual output: alert("Enter red or blue")
+
+TEST PLAN 14:
+
+Input: [Congratulations] roc?: "c"
+
+Expected output: alert("Enter r to restart or c to continue")
+
+Actual output: alert("Enter r to restart or c to continue")
+
+TEST PLAN 15:
+
+Input: [GAME OVER] restart?: "r",
+
+Expected output: alert("Enter r to restart")
+
+Actual output: alert("Enter r to restart")
+
+TEST PLAN 16:
+
+Input: [Pt2 teaser] restart?: "HELL YES",
+
+Expected output: alert("Enter r to restart")
+
+Actual output: alert("Enter r to restart")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
